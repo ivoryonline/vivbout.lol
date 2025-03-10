@@ -5,26 +5,26 @@
 
 const config = {
     // Page title and username
-    username: "v",
-    title: "@v",
+    username: "nugget",
+    title: "@nugget",
     favicon: "https://vivwebz.net/media/favicon.ico",
     
     // Display name shown on profile (can be different from username)
-    displayName: "livingbeing",
+    displayName: "nugget",
     
     // User ID (shown when hovering over name)
-    uid: "1",
+    uid: "2",
     
     // Bio text
-    bio: "Currently a Student. Founder of Vivbout & Modular Dynamics",
+    bio: "My favorite guns are AK-12 and S&W Magnum. I like crocodiles🐊",
     
     // Profile picture URL
-    profilePicture: "https://assets.vivwebz.net/profilepicture.png",
+    profilePicture: "https://assets.vivwebz.net/nugget.png",
     
     // Background settings
     background: {
-        type: "video", // options: "video", "image"
-        source: "https://assets.vivwebz.net/wallpaper.mp4", // URL to video or image
+        type: "image", // options: "video", "image"
+        source: "https://assets.vivwebz.net/nuggetbackground.jpg", // URL to video or image
         useBackgroundAudio: false // If true, will use audio from video instead of music playlist
     },
     
@@ -37,11 +37,11 @@ const config = {
     
     // Colors (can use any CSS color format: hex, rgb, hsl, etc.)
     colors: {
-        primary: "#2e1c75", // Main color theme
+        primary: "#d4bd6c", // Main color theme
         secondary: "#ffffff", // Secondary accent color
         text: "#ffffff", // Text color
         background: "#121212", // Page background (visible before video/image loads)
-        acrylicBackground: "rgba(107, 74, 47, 0.5)", // Background color for acrylic effect
+        acrylicBackground: "rgba(170, 170, 170, 0.5)", // Background color for acrylic effect
     },
     
     // Glow effect settings
@@ -52,7 +52,7 @@ const config = {
     
     // Font settings
     font: {
-        family: "'DM Mono', monospace", // Font family
+        family: "'Poppins', sans-serif", // Font family
         // You can add more specific font settings if needed
     },
     
@@ -65,8 +65,8 @@ const config = {
     // Single track for profile
     music: {
         track: {
-            title: "Ethereal Dreams",
-            file: "https://assets.vivwebz.net/profilesong.mp3"
+            title: "koptereid",
+            file: "https://assets.vivwebz.net/youtube_Jof64XCUYPY_audio.mp3"
         },
         initialVolume: 0.2, // Initial volume (0-1)
         autoplay: true // Start playing automatically after entry
@@ -77,26 +77,9 @@ const config = {
     // Extended format: {id: "badgeName", color: "#hexcolor"} to customize colors
     badges: [
         { id: "verified", color: "#FFFFFF" },
-        { id: "premium", color: "#FFFFFF" },
-        { id: "vivbout", color: "#FFFFFF" },
-        { id: "modulardynamics", color: "#FFFFFF" },
-        { id: "developer", color: "#FFFFFF" }
     ],
     
     // Social media links
     socials: [
-        {
-            platform: "twitter", // Platform name
-            icon: "fab fa-twitter", // Font Awesome icon class
-            url: "https://x.com/vivvory", // URL to profile
-            color: "#FFFFFF" // Override color from socials colors above
-        },
-        {
-            platform: "github",
-            icon: "fab fa-github",
-            url: "https://github.com/ivoryonline",
-            color: "#FFFFFF"
-        }
-        // Add more social platforms as needed
     ]
 };

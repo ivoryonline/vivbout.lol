@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <script src="user/nugget.js" defer></script>
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <div class="background-container">
+        <video id="background-video" loop muted></video>
+    </div>
+    
+    <div id="entry-screen" class="screen">
+        <div class="entry-content">
+            <h1 id="enter-text">click to enter</h1>
+        </div>
+    </div>
+    
+    <div id="profile-screen" class="screen hidden">
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-picture-container">
+                    <img id="profile-picture" src="" alt="Profile Picture">
+                </div>
+                <div class="profile-info">
+                    <div class="name-badge-container">
+                        <h1 id="display-name" class="glow-effect"></h1>
+                        <div class="badges-container" id="badges-container">
+                        </div>
+                    </div>
+                    <p id="bio"></p>
+                </div>
+            </div>
+            
+            <div class="socials-container" id="socials-container">
+            </div>
+            
+            <audio id="audio-player"></audio>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html>

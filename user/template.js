@@ -6,7 +6,7 @@
 const config = {
     // Page title and username
     username: "template",
-    title: "template",
+    title: "@template",
     favicon: "https://vivwebz.net/media/favicon.ico",
     
     // Display name shown on profile (can be different from username)
