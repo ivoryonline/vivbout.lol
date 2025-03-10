@@ -1,0 +1,225 @@
+/* Profile Screen Styles */
+.profile-container {
+    width: 90%;
+    max-width: 700px;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+    position: relative;
+}
+
+.profile-container.acrylic {
+    background-color: var(--acrylic-background);
+    backdrop-filter: blur(var(--acrylic-blur));
+    -webkit-backdrop-filter: blur(var(--acrylic-blur));
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.profile-screen.active .profile-container {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.profile-header {
+    display: flex;
+    margin-bottom: 30px;
+    align-items: flex-start;
+}
+
+.profile-picture-container {
+    flex: 0 0 120px;
+    margin-right: 20px;
+}
+
+#profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 0 15px var(--primary-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#profile-picture:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--primary-color);
+}
+
+.profile-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.name-badge-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#display-name {
+    font-size: 2.2rem;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 15px;
+    margin-bottom: 0;
+}
+
+.uid-tooltip {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    white-space: nowrap;
+}
+
+#display-name:hover .uid-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+#bio {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+.badges-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+.badge i {
+    font-size: 20px;
+    filter: drop-shadow(0 0 5px currentColor);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.badge:hover {
+    transform: scale(1.1);
+}
+
+.badge-tooltip {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.badge:hover .badge-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.socials-container {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    margin-top: 20px;
+}
+
+.social-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    transform: scale(2);
+}
+
+.social-icon i {
+    font-size: 24px;
+}
+
+.social-icon:hover {
+    transform: scale(2.2);
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .profile-container {
+        width: 95%;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .profile-picture-container {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    #profile-picture {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .name-badge-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #display-name {
+        font-size: 1.8rem;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .badges-container {
+        justify-content: center;
+    }
+    
+    .socials-container {
+        gap: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    #display-name {
+        font-size: 1.5rem;
+    }
+    
+    #bio {
+        font-size: 0.9rem;
+    }
+    
+    .social-icon i {
+        font-size: 22px;
+    }
+}

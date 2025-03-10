@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivbout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2e1c75;
+            --secondary-color: #ffffff;
+            --accent-color: #9b59b6;
+            --text-color: #ffffff;
+            --background-color: #000000;
+            --acrylic-background: rgba(20, 20, 30, 0.7);
+            --glow-intensity: 5px;
+            --transition-speed: 0.5s;
+            --font-family: 'Poppins', sans-serif;
+            --acrylic-blur: 10px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        #background-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        /* Fallback background if video fails */
+        .video-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #1a103f, #2e1c75);
+            display: none;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.7) 100%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 var(--glow-intensity) rgba(46, 28, 117, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(46, 28, 117, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(46, 28, 117, 0.7);
+        }
+
+        .btn:hover:before {
+            left: 100%;
+        }
+
+        .hero {
+            height: calc(100vh - 100px);
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .card {
+            background-color: var(--acrylic-background);
+            backdrop-filter: blur(var(--acrylic-blur));
+            -webkit-backdrop-filter: blur(var(--acrylic-blur));
+            border-radius: 15px;
+            padding: 30px;
+            flex: 1 1 300px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .profile-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .profile-item {
+            background-color: var(--acrylic-background);
+            backdrop-filter: blur(var(--acrylic-blur));
+            -webkit-backdrop-filter: blur(var(--acrylic-blur));
+            border-radius: 15px;
+            padding: 20px;
+            width: 250px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .profile-item:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--primary-color);
+            transition: transform 0.5s ease;
+        }
+
+        .profile-item:hover .profile-pic {
+            transform: scale(1.1);
+        }
+
+        .profile-name {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .badges {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-item:hover .badge {
+            transform: scale(1.2);
+        }
+
+        .contact {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .discord {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            font-size: 1.1rem;
+            background-color: #5865F2;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discord:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .discord:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.7);
+        }
+
+        .discord:hover:before {
+            left: 100%;
+        }
+
+        footer {
+            padding: 50px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            background-color: rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        /* Added animation */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Loading indicator for video */
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .card-container {
+                flex-direction: column;
+            }
+            
+            nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <div class="loading-spinner"></div>
+        <div class="video-fallback"></div>
+        <video id="background-video" autoplay loop muted playsinline preload="auto">
+            <source src="https://assets.vivwebz.net/youtube__P-8Xg4Uxq0_1920x1080_h264.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="overlay"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">Viv<span>bout</span></div>
+            <nav>
+                <a href="#learn-more">Features</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <a href="#contact" class="btn">Get Started</a>
+        </header>
+        
+        <section class="hero">
+            <div class="hero-content">
+                <h1>The Future of Digital Identity</h1>
+                <p>Vivbout is revolutionizing how you express yourself online with beautifully designed, customizable profile pages that showcase your unique digital presence.</p>
+                <a href="#learn-more" class="btn">Learn More</a>
+            </div>
+        </section>
+        
+        <section id="learn-more" class="section">
+            <h2 class="section-title">What is Vivbout?</h2>
+            <div class="card-container">
+                <div class="card">
+                    <h3>Digital Identity</h3>
+                    <p>Vivbout provides a sleek, modern way to create your digital presence online. More than just a link in bio, it's your complete digital identity expressed through stunning visuals and personalization.</p>
+                </div>
+                <div class="card">
+                    <h3>Self Expression</h3>
+                    <p>Customize your profile with personal badges, animations, music, and dynamic backgrounds. Stand out with a profile that truly captures your aesthetic and personality.</p>
+                </div>
+                <div class="card">
+                    <h3>Professional Impact</h3>
+                    <p>Make a lasting impression with clients, employers, or fans with a professional yet expressive online presence that goes beyond traditional social media profiles.</p>
+                </div>
+            </div>
+            
+            <div class="profile-showcase">
+                <div class="profile-item">
+                    <img src="/api/placeholder/100/100" alt="Profile" class="profile-pic">
+                    <h3 class="profile-name">Developer</h3>
+                    <div class="badges">
+                        <div class="badge"></div>
+                        <div class="badge"></div>
+                        <div class="badge"></div>
+                    </div>
+                    <p>Showcase your projects and coding skills</p>
+                </div>
+                <div class="profile-item">
+                    <img src="/api/placeholder/100/100" alt="Profile" class="profile-pic">
+                    <h3 class="profile-name">Creator</h3>
+                    <div class="badges">
+                        <div class="badge"></div>
+                        <div class="badge"></div>
+                    </div>
+                    <p>Display your portfolio and creative works</p>
+                </div>
+                <div class="profile-item">
+                    <img src="/api/placeholder/100/100" alt="Profile" class="profile-pic">
+                    <h3 class="profile-name">Professional</h3>
+                    <div class="badges">
+                        <div class="badge"></div>
+                        <div class="badge"></div>
+                        <div class="badge"></div>
+                        <div class="badge"></div>
+                    </div>
+                    <p>Build your personal brand and network</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact" class="section">
+            <h2 class="section-title">How to Get Your Own Vivbout Profile</h2>
+            <div class="card">
+                <p>Ready to elevate your online presence? Getting your custom Vivbout profile is simple. Contact the creator directly through Discord to discuss your personalized profile design and features.</p>
+                <div class="contact">
+                    <p>Reach out to the founder of Vivbout:</p>
+                    <a href="https://discord.com" class="discord">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+                        </svg>
+                        @livingbeinv
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Vivbout. All rights reserved. Founded by livingbeing.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Video loading handler
+        const video = document.getElementById('background-video');
+        const fallback = document.querySelector('.video-fallback');
+        const spinner = document.querySelector('.loading-spinner');
+        
+        // Show loading spinner while video is loading
+        spinner.style.display = 'block';
+        
+        // Handle video loading events
+        video.addEventListener('loadeddata', function() {
+            spinner.style.display = 'none';
+        });
+        
+        video.addEventListener('error', function() {
+            console.error('Video loading error');
+            spinner.style.display = 'none';
+            video.style.display = 'none';
+            fallback.style.display = 'block';
+        });
+        
+        // If video takes too long to load, show fallback
+        setTimeout(function() {
+            if (video.readyState < 3) {
+                spinner.style.display = 'none';
+                video.style.display = 'none';
+                fallback.style.display = 'block';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
