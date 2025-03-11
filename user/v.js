@@ -16,7 +16,7 @@ const config = {
     uid: "1",
     
     // Bio text
-    bio: "Currently a Student. Founder of Vivbout & Modular Dynamics",
+    bio: "I do a large variety of things accross the internet.",
     
     // Profile picture URL
     profilePicture: "https://assets.vivwebz.net/profilepicture.png",
